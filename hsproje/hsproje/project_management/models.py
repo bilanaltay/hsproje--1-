@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class User(models.Model):
@@ -28,7 +29,7 @@ class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='tasks')
     completed= models.BooleanField(default=False)
     assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='tasks')  #Task ataması.#eğer görev yoksa null=true olabilir görev varsa da blank=true ile boş geçilebilir
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     deadline = models.DateTimeField()
 
     def __str__(self):
